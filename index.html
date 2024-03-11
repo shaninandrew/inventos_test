@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css">
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  </head>
+  
+  <body>
+  <div class='header' id="header">Заголовок сайта</div>
+  <main>
+	<div class="video_place">
+      <video
+      id="my-video"
+      autoplay="muted"
+      class="video-js"
+      controls     preload="auto"     width="640" loop mute
+      height="264"     poster="https://catherineasquithgallery.com/uploads/posts/2021-03/1614610387_167-p-zadnii-fon-dlya-fotoshopa-238.jpg"
+      data-setup="{}"
+		>
+      <source src="https://download.samplelib.com/webm/sample-5s.webm" type="video/mp4" />
+      <source src="https://download.samplelib.com/webm/sample-5s.webm" type="video/webm" />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+          >supports HTML5 video</a
+        >
+      </p>
+    </video>
+  
+
+		<div class="chat_div" id=chatomatic>
+
+			<div class="chat_stack" id=chat_messages>
+			</div>
+
+			<div classs="chat_input" id=chat_input>
+			<input class="input_message" id=input_chat_msg placeholder="Введите сообщение" type=text/>
+			<button class="button_message" onclick="send_message()" type=button>↑</button>
+			</div>
+
+		</div>
+	</div>
+</main>
+<!-- загрузчики плагинов и модулей -->
+<script src="src/script.js"></script>
+<script src="src/plugin.js"></script>
+<!-- ** -->
+
+
+
+<script>
+var player = videojs('my-video');
+player.autoplay('muted');
+player.fluid=true;
+
+console.log ("Регистрация плагина - чат");
+//Регистрация плагина
+try
+{
+   videojs.registerPlugin('Plugin_Chat', Plugin_Chat);
+   //Привязка плагина к экземпляру проигрывателя
+   player.Plugin_Chat({customClass: 'example-class'});
+ }
+ catch 
+ {
+ console.log ("Регистрация плагина - чат прошла с ошибкой!");
+ }
+ finally
+ {
+   console.log ("Регистрация плагина - чат завершена.");
+   }
+
+
+var version = videojs.getPluginVersion('Plugin_Chat');
+console.log("Версия плагина "+version);  // 1.0.1
+
+//player.play();
+
+</script>
+
+  </body>
+</html>
