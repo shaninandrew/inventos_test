@@ -2,16 +2,43 @@ console.log ("Вход в в plugin.js");
 
 const сPlugin_Chat = videojs.getPlugin('plugin');
 
+//опиции где принимать и выводить соообщения
+class MyOptionsForChat
+{
+	constructor(div_input, div_print_msg)
+	{
+		this.input_chat_msg_div = div_input;
+		this.show_chat_msg_div = div_print_msg;
+
+	}
+
+}
+
+
 class Plugin_Chat extends сPlugin_Chat 
 {
 
-  constructor(player, options) 
+
+  constructor(player, options, OptionsForChat) 
   {
 	console.log (" ** Создание плагина");
+	
+	console.log("Переданный класс - "+options.customClass);
+	console.log("Тип переданного класса - "+typeof(options.customClass));
+
+	// вызываем родителя
     super(player, options);
 
-    if (options.customClass) {
+	//расширенные опции рабочих элементов управления
+	this.OptionsForChat = OptionsForChat;
+	console.log("Параметры  вводилка "+this.OptionsForChat.input_chat_msg_div + " / показушка " +this.OptionsForChat.show_chat_msg_div);
+
+	//если опция есть
+    if (options.customClass) 
+	{
+	 //сюда вкладываем div с чатам
       player.addClass(options.customClass);
+	  
     }
 
     player.on('playing', 
@@ -43,7 +70,12 @@ class Plugin_Chat extends сPlugin_Chat
 	function()
 	{
 		console.log("Play & scan chat new messages....");
-		recive_message();
+		//v
+		//console.log("This "+typeof(this) +" name='"+this.constructor.name+"' " +this.__proto__+ " "+info);
+
+		// передаем ID - где будет чат
+		// this.OptionsForChat.input_chat_msg_div  / показушка  this.OptionsForChat.show_chat_msg_div);
+		recive_message(OptionsForChat.show_chat_msg_div);
 		
 	}
 	);

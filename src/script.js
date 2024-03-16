@@ -11,12 +11,17 @@ console.log("Id пользователя = "+user_id);
 console.log(message);
 
 /// Отправляется сообщения на сервер
-function send_message()
+function send_message(id)
 {
-	
- var input= document.getElementById("input_chat_msg");
+	if (id==null)
+  {
+    id ="input_chat_msg";
+  }
+  console.log(" --- Используется чат id "+id);
+
+ var input= document.getElementById(id);
  var new_msg = input.value;
-  console.log ("Send msg - "+new_msg+" to server");
+  console.log ("Отправка данных на сервер - "+new_msg+" to server");
 
  //дата сообщения
  const date_stamp = new Date();
@@ -48,9 +53,15 @@ function send_message()
 
 
 /// Принимает сообщения с сервера 
-function recive_message()
+function recive_message(id_div_print)
 {
-	
+	if (id_div_print==null)
+  {
+    id ="chat_messages";
+  }
+  console.log(" --- Используется чат id "+id_div_print);
+
+
  /*
  fetch("https://server.ru/chat/messages", {
   method: "GET"
@@ -81,9 +92,9 @@ for (var i= 59; i>0; i--)
 	}
 }
 
-console.log (" >> Готово! "+msg);
+console.log (" >> Готово! " + id_div_print+" >> "+msg);
 //пихаем их на экран
-var old_msg =  document.getElementById("chat_messages");
+var old_msg =  document.getElementById(id_div_print);
 old_msg.innerHTML = msg;
 
 }

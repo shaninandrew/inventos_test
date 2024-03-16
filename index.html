@@ -11,6 +11,7 @@
   <body>
   <div class='header' id="header">Заголовок сайта</div>
   <main>
+    <!-- ролик №1-->
 	<div class="video_place">
       <video
       id="my-video"
@@ -30,7 +31,6 @@
         >
       </p>
     </video>
-  
 
 		<div class="chat_div" id=chatomatic>
 
@@ -39,18 +39,51 @@
 
 			<div classs="chat_input" id=chat_input>
 			<input class="input_message" id=input_chat_msg placeholder="Введите сообщение" type=text/>
-			<button class="button_message" onclick="send_message()" type=button>↑</button>
+			<button class="button_message" onclick="send_message('input_chat_msg')" type=button>↑</button>
 			</div>
 
 		</div>
 	</div>
+
+<!-- ролик №2-->
+  <div class="video_place">
+    <video
+    id="my-video2"
+    autoplay="muted"
+    class="video-js"
+    controls     preload="auto"     width="640" loop mute
+    height="264"     poster="https://catherineasquithgallery.com/uploads/posts/2021-03/1614610387_167-p-zadnii-fon-dlya-fotoshopa-238.jpg"
+    data-setup="{}"
+  >
+    <source src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank"
+        >supports HTML5 video</a
+      >
+    </p>
+  </video>
+
+  <div class="chat_div" id=chatomatic2>
+
+    <div class="chat_stack" id=chat_messages2>
+    </div>
+    <div classs="chat_input" id=chat_input2>
+    <input class="input_message" id=input_chat_msg2 placeholder="Введите сообщение" type=text/>
+    <button class="button_message" onclick="send_message('input_chat_msg2')" type=button>↑</button>
+    </div>
+
+  </div>
+</div>
+
 </main>
+
+
 <!-- загрузчики плагинов и модулей -->
 <script src="src/script.js"></script>
 <script src="src/plugin.js"></script>
 <!-- ** -->
-
-
 
 <script>
 var player = videojs('my-video');
@@ -63,24 +96,45 @@ try
 {
    videojs.registerPlugin('Plugin_Chat', Plugin_Chat);
    //Привязка плагина к экземпляру проигрывателя
-   player.Plugin_Chat({customClass: 'example-class'});
+   //создаем объект и передаем параметры div - где показать сообщения и откуда происходит ввод
+   var pl_options1 = new MyOptionsForChat("input_chat_msg","chat_messages");
+   player.Plugin_Chat({customClass: "custom1" }, pl_options1);
  }
- catch 
+ catch (err)
  {
- console.log ("Регистрация плагина - чат прошла с ошибкой!");
+  console.log ("Регистрация плагина - чат прошла с ошибкой! "+err);
  }
  finally
  {
-   console.log ("Регистрация плагина - чат завершена.");
-   }
-
-
-var version = videojs.getPluginVersion('Plugin_Chat');
-console.log("Версия плагина "+version);  // 1.0.1
-
-//player.play();
+     console.log ("Регистрация плагина - чат завершена.");
+  }
 
 </script>
+
+<script>
+  var player2 = videojs('my-video2');
+  player2.autoplay('muted');
+  player2.fluid=true;
+  
+  console.log ("Регистрация плагина - чат");
+  //Регистрация плагина
+  try
+  {
+     //videojs.registerPlugin('Plugin_Chat', Plugin_Chat);
+     //Привязка плагина к экземпляру проигрывателя
+      var pl_options2 = new MyOptionsForChat("input_chat_msg2","chat_messages2");
+      player2.Plugin_Chat({customClass: "custom2" },pl_options2);
+   }
+   catch (err)
+   {
+     console.log ("Регистрация плагина - чат прошла с ошибкой! "+err);
+   }
+   finally
+   {
+       console.log ("Регистрация плагина - чат завершена.");
+    }
+  
+  </script>
 
   </body>
 </html>
